@@ -1,0 +1,30 @@
+controllers:
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
+
+shop_api_all:
+  path: /api/shops
+  controller: 'App\Controller\ShopController::getAll'
+  methods: ["GET"]
+
+shop_api_get:
+  path: /api/shops/{id}
+  controller: 'App\Controller\ShopController::get'
+  methods: ["GET"]
+
+shop_api_create:
+  path: /api/shops
+  controller: 'App\Controller\ShopController::create'
+  methods: ["POST"]
+
+shop_api_update:
+  path: /api/shops/{id}
+  controller: 'App\Controller\ShopController::update'
+  methods: ["PUT"]
+
+shop_api_delete:
+  path: /api/shops/{id}
+  controller: 'App\Controller\ShopController::delete'
+  methods: ["DELETE"]
