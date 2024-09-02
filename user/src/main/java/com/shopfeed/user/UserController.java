@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     public User get(@PathVariable(value = "id") UUID id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find user with id: " + id.toString()));
+        return getUser(id);
     }
 
     @PostMapping
@@ -38,7 +38,7 @@ public class UserController {
 
     @PutMapping(path = "/{id}")
     public User update(@PathVariable UUID id, @RequestBody User updatedUser) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find user with id: " + id.toString()));
+        User user = getUser(id);
         user.setName(updatedUser.getName());
         user.setEmail(updatedUser.getEmail());
 
@@ -47,10 +47,14 @@ public class UserController {
 
     @DeleteMapping(path = "/{id}")
     public String Delete(@PathVariable UUID id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find user with id: " + id.toString()));
+        User user = getUser(id);
         userRepository.delete(user);
 
         return "User has been deleted";
+    }
+
+    private User getUser(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find user with id: " + id.toString()));
     }
 
 }
