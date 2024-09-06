@@ -6,8 +6,8 @@ Plan (subject to change)
 ```
 shop-feed services
   authentication - ? | sql
-  user - spring | sql
-  shop - laravel | sql
+  user - spring | mysql
+  shop - symfony | pgsql
   product - express | mongo
   transaction - asp.net | sql
   cart - redis
