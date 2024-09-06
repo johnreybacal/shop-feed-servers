@@ -14,12 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.shopfeed.kafka.EventType;
+import com.shopfeed.kafka.MessageProducer;
+import com.shopfeed.kafka.UserMutationEvent;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MessageProducer messageProducer;
 
     @GetMapping
     public Iterable<User> getAll() {
@@ -33,7 +40,11 @@ public class UserController {
 
     @PostMapping
     public User create(@RequestBody User user) {
-        return userRepository.save(user);
+        User createdUser = userRepository.save(user);
+        UserMutationEvent event = new UserMutationEvent(EventType.CREATED, createdUser);
+        this.messageProducer.sendUserMutationMessage(event);
+
+        return createdUser;
     }
 
     @PutMapping(path = "/{id}")
@@ -42,13 +53,21 @@ public class UserController {
         user.setName(updatedUser.getName());
         user.setEmail(updatedUser.getEmail());
 
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        UserMutationEvent event = new UserMutationEvent(EventType.UPDATED, user);
+        this.messageProducer.sendUserMutationMessage(event);
+
+        return user;
     }
 
     @DeleteMapping(path = "/{id}")
     public String Delete(@PathVariable UUID id) {
         User user = getUser(id);
         userRepository.delete(user);
+
+        UserMutationEvent event = new UserMutationEvent(EventType.DELETED, user);
+        this.messageProducer.sendUserMutationMessage(event);
 
         return "User has been deleted";
     }
