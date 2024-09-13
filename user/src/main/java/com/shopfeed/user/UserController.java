@@ -73,7 +73,8 @@ public class UserController {
     }
 
     private User getUser(UUID id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find user with id: " + id.toString()));
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "Unable to find user with id: " + id.toString()));
     }
 
 }
