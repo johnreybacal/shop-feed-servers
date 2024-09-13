@@ -4,19 +4,19 @@ import com.shopfeed.user.User;
 
 public class UserMutationEvent {
 
-    private EventType eventType;
+    private String eventType;
     private User user;
 
     public UserMutationEvent(EventType eventType, User user) {
-        this.eventType = eventType;
+        this.eventType = eventType.name();
         this.user = user;
     }
 
     public void setEventType(EventType eventType) {
-        this.eventType = eventType;
+        this.eventType = eventType.name();
     }
 
-    public EventType getEventType() {
+    public String getEventType() {
         return this.eventType;
     }
 
