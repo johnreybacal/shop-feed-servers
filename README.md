@@ -8,7 +8,7 @@ shop-feed services
   authentication - ? | sql
   user - spring | mysql
     contains follows
-  shop - django | pgsql
+  shop - fastapi | pgsql
     contains products
   transaction - asp.net | sql
   cart - redis
