@@ -1,5 +1,11 @@
 from pydantic import BaseModel
+from uuid import UUID
 
-class Shop(BaseModel):
-    id: int | None
+class ShopPayload(BaseModel):
     name: str
+
+class Shop(ShopPayload):
+    id: UUID
+
+    class Config:
+        orm_mode = True
