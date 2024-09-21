@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from shop.model import Shop
+from shop.schema import Shop
 
 router = APIRouter(prefix="/shops")
 
