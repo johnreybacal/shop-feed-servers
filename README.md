@@ -7,8 +7,9 @@ Plan (subject to change)
 shop-feed services
   authentication - ? | sql
   user - spring | mysql
-  shop - symfony | pgsql
-  product - express | mongo
+    contains follows
+  shop - django | pgsql
+    contains products
   transaction - asp.net | sql
   cart - redis
 
