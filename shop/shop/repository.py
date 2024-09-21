@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from uuid import UUID
 
@@ -15,5 +16,28 @@ def create(db: Session, data: schema.ShopPayload):
     db.add(shop)
     db.commit()
     db.refresh(shop)
+
+    return shop
+
+def update(db: Session, id: UUID, data: schema.ShopPayload):
+    shop = get(db, id)
+
+    if shop is None:
+        raise HTTPException(status_code=404, detail="Shop not found")
+
+    shop.name = data.name
+    db.commit()
+    db.refresh(shop)
+
+    return shop
+
+def delete(db: Session, id: UUID):
+    shop = get(db, id)
+
+    if shop is None:
+        raise HTTPException(status_code=404, detail="Shop not found")
+
+    db.delete(shop)
+    db.commit()
 
     return shop

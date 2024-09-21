@@ -4,16 +4,9 @@ from uuid import UUID
 from shop.schema import ShopPayload, Shop
 from . import repository
 from db.database import get_db
-
 from uuid import UUID
 
-
 router = APIRouter(prefix="/shops")
-
-shops = []
-
-# for i in range(1, 10):
-#     shops.append(Shop(id=i, name="Shop " + str(i)))
 
 def getShopById(id: UUID, db: Session):
     shop = repository.get(db, id)
@@ -40,25 +33,23 @@ def create(payload: ShopPayload, db: Session = Depends(get_db)):
         "shop": shop
     }
 
-# @router.put("/{id}")
-# def update(id: UUID, payload: ShopPayload, db: Session = Depends(get_db)):
-#     shopToUpdate: Shop = getShopById(id)
-#     shopToUpdate.name = payload.name
+@router.put("/{id}")
+def update(id: UUID, payload: ShopPayload, db: Session = Depends(get_db)):
+    shop = repository.update(db, id, payload)
 
-#     return {
-#         "message": "Shop has been updated",
-#         "shop": shopToUpdate
-#     }
+    return {
+        "message": "Shop has been updated",
+        "shop": shop
+    }
 
-# @router.delete("/{id}")
-# def delete(id: int):
-#     shopToDelete = getShopById(id)
-#     shops.remove(shopToDelete)
+@router.delete("/{id}")
+def delete(id: UUID, db: Session = Depends(get_db)):
+    shop = repository.delete(db, id)
 
-#     return {
-#         "message": "Shop has been deleted",
-#         "shop": shopToDelete
-#     }
+    return {
+        "message": "Shop has been deleted",
+        "shop": shop
+    }
 
 
 
