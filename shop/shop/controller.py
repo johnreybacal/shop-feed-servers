@@ -18,14 +18,23 @@ def getShopById(id: UUID, db: Session):
 
 @router.get("/")
 def list(db: Session = Depends(get_db)):
+    '''
+    Returns a list of shops
+    '''
     return repository.list(db)
 
 @router.get("/{id}")
 def get(id: UUID, db: Session = Depends(get_db)):
+    '''
+    Returns a specific shop based on the supplied `id`
+    '''
     return getShopById(id, db)
 
 @router.post("/", status_code=201)
 def create(payload: ShopPayload, db: Session = Depends(get_db)):
+    '''
+    Create a shop with the given `payload`
+    '''
     shop = repository.create(db, payload)
 
     return {
@@ -35,6 +44,9 @@ def create(payload: ShopPayload, db: Session = Depends(get_db)):
 
 @router.put("/{id}")
 def update(id: UUID, payload: ShopPayload, db: Session = Depends(get_db)):
+    '''
+    Update a shop with the given `payload` based on the supplied `id`
+    '''
     shop = repository.update(db, id, payload)
 
     return {
@@ -44,6 +56,9 @@ def update(id: UUID, payload: ShopPayload, db: Session = Depends(get_db)):
 
 @router.delete("/{id}")
 def delete(id: UUID, db: Session = Depends(get_db)):
+    '''
+    Delete a shop based on the supplied `id`
+    '''
     shop = repository.delete(db, id)
 
     return {
