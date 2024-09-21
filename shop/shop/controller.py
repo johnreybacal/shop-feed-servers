@@ -11,7 +11,7 @@ for i in range(1, 10):
 def getShopById(id: int):
     shop = [shop for shop in shops if shop.id == id]
 
-    if shop.__len__() == 0:
+    if len(shop) == 0:
         raise HTTPException(status_code=404, detail="Shop not found")
     else:
         return shop[0]
@@ -27,7 +27,7 @@ def get(id: int):
 
 @router.post("/", status_code=201)
 def create(shop: Shop):
-    shop.id = shops.__len__() + 1
+    shop.id = len(shops) + 1
     shops.append(shop)
 
     return {
