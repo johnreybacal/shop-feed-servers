@@ -15,7 +15,7 @@ public class MessageProducer {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendUserMutationMessage(UserMutationEvent event) {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        ObjectWriter ow = new ObjectMapper().writer();
 
         try {
             String json = ow.writeValueAsString(event);
