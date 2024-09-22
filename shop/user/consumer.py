@@ -1,7 +1,8 @@
 from aiokafka import AIOKafkaConsumer
 from json import loads
 from config import settings, loop
-from .schema import UserMutation
+from user.schema import UserMutation
+from user.event_handler import handle
 
 async def consume():
     consumer = AIOKafkaConsumer(settings.kafka_topic,
@@ -11,7 +12,8 @@ async def consume():
     await consumer.start()
     try:
         async for msg in consumer:
-            event = UserMutation(dictionary=msg.value)
-            print(event)
+            msg.value["event_type"] = msg.value.pop("eventType")
+            event = UserMutation.model_validate(msg.value)
+            handle(event)
     finally:
         await consumer.stop()

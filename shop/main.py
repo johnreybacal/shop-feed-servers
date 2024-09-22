@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from shop.controller import router as shop_router
 from db.database import engine
 import shop.model
-import asyncio
 from user.consumer import consume
 from config import loop
 

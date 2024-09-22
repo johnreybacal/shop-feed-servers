@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from uuid import UUID
-from shop.schema import ShopPayload, Shop
+from shop.schema import ShopPayload
 from . import repository
 from db.database import get_db
 from uuid import UUID
