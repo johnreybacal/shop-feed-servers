@@ -15,3 +15,7 @@ shop-feed services
 
 apache kafka for event streaming
 ```
+
+
+## Architecture diagram (not complete yet)
+![architecture](./docs/architecture.png)
