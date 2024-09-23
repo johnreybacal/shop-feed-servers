@@ -28,7 +28,12 @@ def get(id: UUID, db: Session = Depends(get_db)):
     '''
     Returns a specific shop based on the supplied `id`
     '''
-    return getShopById(id, db)
+    shop = getShopById(id, db)
+
+    # Load owner
+    shop.owner
+
+    return shop
 
 @router.post("/", status_code=201)
 def create(payload: ShopPayload, db: Session = Depends(get_db)):

@@ -11,7 +11,9 @@ def get(db: Session, id: UUID):
     return db.query(model.Shop).filter(model.Shop.id == id).first()
 
 def create(db: Session, data: schema.ShopPayload):
-    shop = model.Shop(name=data.name)
+    shop = model.Shop()
+    shop.name = data.name
+    shop.owner_id = data.owner_id
 
     db.add(shop)
     db.commit()
@@ -26,6 +28,7 @@ def update(db: Session, id: UUID, data: schema.ShopPayload):
         raise HTTPException(status_code=404, detail="Shop not found")
 
     shop.name = data.name
+    shop.owner_id = data.owner_id
     db.commit()
     db.refresh(shop)
 
