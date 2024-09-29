@@ -6,7 +6,7 @@ from . import repository
 from db.database import get_db
 from uuid import UUID
 
-router = APIRouter(prefix="/shops")
+router = APIRouter(prefix="/api/shops")
 
 def getShopById(id: UUID, db: Session):
     shop = repository.get(db, id)
