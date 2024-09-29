@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gateway
+  # Used fluent route API instead
+  # cloud:
+  #  gateway:
+  #     routes:
+  #     - id: users-route
+  #       uri: ${USERS_ROUTE_URI:http://localhost:8001}
+  #       predicates:
+  #         - Path=/users/**
+  #       filters:
+  #         - PrefixPath=/api
+  #     - id: shops-route
+  #       uri: ${SHOPS_ROUTE_URI:http://localhost:8002}
+  #       predicates:
+  #         - Path=/shops/**
+  #       filters:
+  #         - PrefixPath=/api
+server:
+  port: 8000
