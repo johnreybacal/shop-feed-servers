@@ -16,7 +16,7 @@ def getShopById(id: UUID, db: Session):
     else:
         return shop
 
-@router.get("/")
+@router.get("")
 def list(db: Session = Depends(get_db)):
     '''
     Returns a list of shops
